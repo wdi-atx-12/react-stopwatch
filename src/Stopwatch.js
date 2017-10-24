@@ -7,7 +7,7 @@ class Stopwatch extends Component {
     this.state = {
       seconds: null || 0,
       paused: true,
-      minutes: 0
+      minutes: null || 0
     };
 
     this.startStopwatch = this.startStopwatch.bind(this);
@@ -22,7 +22,7 @@ class Stopwatch extends Component {
   startStopwatch() {
     if(!this.seconds) {
       this.seconds = setInterval(() => { this.updateTime() }, 100);
-      this.mins = setInterval(() => { this.updateMins() }, 60000);
+      this.mins = setInterval(() => { this.updateMins() }, 10000 * 6);
     }
   }
 
