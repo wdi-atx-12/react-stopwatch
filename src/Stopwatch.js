@@ -6,26 +6,37 @@ class Stopwatch extends Component {
     super(props);
     this.state = {
       seconds: null || 0,
-      paused: true
+      paused: true,
+      minutes: 0
     };
 
     this.startStopwatch = this.startStopwatch.bind(this);
     this.resetStopwatch = this.resetStopwatch.bind(this);
     this.pauseTime = this.pauseTime.bind(this);
 
-    this.timer = null;
+    this.seconds = null;
+    this.mins = null;
   }
 
 
   startStopwatch() {
-    if(!this.timer) {
-      this.timer = setInterval(() => { this.updateTime() }, 1000);
+    if(!this.seconds) {
+      this.seconds = setInterval(() => { this.updateTime() }, 100);
+      this.mins = setInterval(() => { this.updateMins() }, 60000);
     }
+  }
+
+  updateMins() {
+    this.setState({
+      minutes: this.state.minutes + 1,
+      seconds: 0,
+      paused: false
+    })
   }
 
   updateTime() {
     this.setState({
-      seconds: this.state.seconds + 1,
+      seconds: this.state.seconds + .1,
       paused: false
     })  
   }
@@ -43,8 +54,10 @@ class Stopwatch extends Component {
   }
 
   resetInterval() {
-    clearInterval(this.timer);
-    this.timer = null;
+    clearInterval(this.seconds);
+    clearInterval(this.mins);
+    this.seconds = null;
+    this.mins = null;
   }
 
 
@@ -52,7 +65,8 @@ class Stopwatch extends Component {
     this.resetInterval()
     this.setState({
       seconds: 0,
-      paused: true
+      paused: true,
+      minutes: 0
     })
   }
 
@@ -61,7 +75,7 @@ class Stopwatch extends Component {
   render() {
     return (
       <div className="stopwatch">
-        <h1>{this.state.seconds}</h1>
+        <h1>{this.state.minutes} : {this.state.seconds.toFixed(1)}</h1>
         <div className="controls">
           <button onClick={this.resetStopwatch}>Reset</button>
           <button onClick={this.startStopwatch}>Start</button>
