@@ -16,7 +16,7 @@ class Stopwatch extends Component {
   }
 
   _onReset(e) {
-    clearInterval(this.state.interval);
+    this._onPause();
     this.setState({
       timer: 0
     })
@@ -33,7 +33,7 @@ class Stopwatch extends Component {
   }
 
   _onPause(e) {
-    console.log('pause');
+    clearInterval(this.state.interval);
   }
 
   render() {
