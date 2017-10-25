@@ -5,14 +5,12 @@ class Stopwatch extends Component {
   constructor(props) {
     super(props);
 
-    this.autoBind();
-  }
+    this._onReset = this._onReset.bind(this);
+    this._onStart = this._onStart.bind(this);
+    this._onPause = this._onPause.bind(this);
 
-  autoBind() {
-    for(let m in this) {
-      if(typeof(this[m])==='function' && m.match(/_\w+/)) {
-        this[m] = this[m].bind(this)
-      }
+    this.state = {
+      timer: 0
     }
   }
 
@@ -21,11 +19,15 @@ class Stopwatch extends Component {
   }
 
   _onStart(e) {
-
+    setInterval(() => {
+      this.setState({
+        timer: this.state.timer + 1
+      });
+    }, 1000)
   }
 
   _onPause(e) {
-
+    console.log('pause');
   }
 
   render() {
