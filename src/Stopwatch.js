@@ -17,7 +17,7 @@ class Stopwatch extends Component {
   }
 
   _onReset(e) {
-
+    console.log('reset');
   }
 
   _onStart(e) {
@@ -33,9 +33,9 @@ class Stopwatch extends Component {
       <div className="stopwatch">
         <h1>0</h1>
         <div className="controls">
-          <button onReset={this._onReset}>Reset</button>
-          <button onStart={this._onStart}>Start</button>
-          <button onPause={this._onPause}>Pause</button>
+          <button onClick={this._onReset}>Reset</button>
+          <button onClick={this._onStart}>Start</button>
+          <button onClick={this._onPause}>Pause</button>
         </div>
       </div>
     );
