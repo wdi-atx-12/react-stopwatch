@@ -7,31 +7,40 @@ class Stopwatch extends Component {
     this.state={
       count: null
     };
-    this.going = null;
     this._contare = this._contare.bind(this);
-    this._fermare = this._fermare.bind(this);
     this._reIniziare = this._reIniziare.bind(this);
+    this._fermare = this._fermare.bind(this);
 
   }
-  _contare(){
-    this.setState({
-      count: this.state.count+1 ||0
-    })
+  _contare(event){
+    if(this.going){
+      event.preventDefault();
+      clearInterval(this.going); 
+    }
+      this.going = setInterval(()=>{
+        this.setState({
+          count: this.state.count + 1 || 0
+        })
+      }, 1000)
   }
+
   _reIniziare(){
     this.setState({
       count: 0
     })
-
   }
+  _fermare(){
+    clearInterval(this.going);
+  }
+  
   render() {
     return (
       <div className="stopwatch">
         <h1>{this.state.count}</h1>
         <div className="controls">
           <button onClick={this._reIniziare}>Reset</button>
-          <button onClick={(event)=>{this.going = setInterval(this._contare, 100)}}>Start</button>
-          <button onClick={(event)=>{clearInterval(this.going)}}>Pause</button>
+          <button onClick={this._contare}>Start</button>
+          <button onClick={this._fermare}>Pause</button>
         </div>
       </div>
     );
