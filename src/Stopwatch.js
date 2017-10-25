@@ -20,7 +20,6 @@ class Stopwatch extends Component {
   }
 
   _startTime(e){
-    console.log("start time button has been clicked");
     this.changeTime = () => {
       this.setState({
         time: this.state.time + 1
@@ -32,7 +31,6 @@ class Stopwatch extends Component {
   }
 
   _pauseTime(e){
-    console.log("pause time button has been clicked");
     clearInterval(this.state.interval)
   }
 
